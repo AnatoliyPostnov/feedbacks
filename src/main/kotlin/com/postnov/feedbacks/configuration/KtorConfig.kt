@@ -17,14 +17,12 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class KtorConfig {
-    @Value("\${ktor.client.request-timeout}")
     val timeoutMills: Long = 60000
-
     @Bean
-    fun ktorHttpClient(objectMapper: ObjectMapper): HttpClient = HttpClient(CIO) {
+    fun ktorHttpClient(jacksonMapper: ObjectMapper): HttpClient = HttpClient(CIO) {
         install(ContentNegotiation) {
             jackson {
-                register(Json, JacksonConverter(objectMapper))
+                register(Json, JacksonConverter(jacksonMapper))
             }
         }
         install(Logging) {

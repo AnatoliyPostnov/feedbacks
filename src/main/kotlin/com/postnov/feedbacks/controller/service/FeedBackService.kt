@@ -1,7 +1,9 @@
 package com.postnov.feedbacks.controller.service
 
-import com.fasterxml.jackson.databind.node.ObjectNode
+import com.postnov.feedbacks.dto.FeedbackDto
 
 interface FeedBackService {
-    fun parseFeedBack(inputData: String): List<String>
+    fun parseFeedBack(inputData: FeedbackDto): List<String>
+
+    fun getFeedbacksByProductId(id: String): List<String>
 }

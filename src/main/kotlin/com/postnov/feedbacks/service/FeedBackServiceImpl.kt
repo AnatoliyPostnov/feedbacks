@@ -4,17 +4,25 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.postnov.feedbacks.controller.service.FeedBackService
+import com.postnov.feedbacks.dto.FeedbackDto
+import com.postnov.feedbacks.service.client.WbClient
 import org.springframework.stereotype.Service
 
 @Service
 class FeedBackServiceImpl(
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+    private val wbClient: WbClient
 ): FeedBackService {
-    override fun parseFeedBack(inputData: String): List<String> {
-        return ((objectMapper.readTree(inputData) as? ObjectNode)
-            ?.get("feedbacks") as? ArrayNode)
-            ?.mapNotNull { (it as? ObjectNode) }
-            ?.mapNotNull { it.get("text").textValue() }
+    override fun parseFeedBack(inputData: FeedbackDto): List<String> {
+        return inputData.feedbacks?.mapNotNull { it.text }
             ?: throw RuntimeException("Parsing result can`t be null")
+    }
+
+    override fun getFeedbacksByProductId(id: String): List<String> {
+        val product = wbClient.getProductByProductId(id)
+        val cardId = product.data?.products?.firstOrNull()?.root
+            ?: throw RuntimeException("cardId can`t be null")
+        val feedBacks = wbClient.getFeedbackByCardId(cardId).feedbacks ?: emptyList()
+        return feedBacks.mapNotNull { it.text }
     }
 }
