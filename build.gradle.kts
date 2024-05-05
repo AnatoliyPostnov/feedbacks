@@ -19,17 +19,16 @@ repositories {
 }
 
 dependencies {
-	implementation("io.ktor:ktor-client-content-negotiation:2.0.2")
-	implementation("io.ktor:ktor-client-core-jvm:2.1.3")
-	implementation("io.ktor:ktor-client-cio-jvm:2.1.3")
-	implementation("io.ktor:ktor-client-logging-jvm:2.1.3")
-	implementation("io.ktor:ktor-serialization-jackson:2.1.3")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 //	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("io.ktor:ktor-client-core:1.6.3")
+	implementation("io.ktor:ktor-client-cio:1.6.3")
+	implementation("io.ktor:ktor-client-jackson:1.6.3")
+	implementation("io.ktor:ktor-client-logging:1.6.3")
 }
 
 tasks.withType<KotlinCompile> {

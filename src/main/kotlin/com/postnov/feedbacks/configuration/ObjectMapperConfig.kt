@@ -25,6 +25,5 @@ class ObjectMapperConfig {
         disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
         configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
-        configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
     }
 }
