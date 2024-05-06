@@ -21,7 +21,8 @@ class FeedBackServiceImpl(
     override fun getGptAnswer(id: String): String {
         val feedback = getFeedbacksByProductId(id)
         val mainMessage = "Сделай краткую выжимку чаще всего встречающихся негативных отзывов из списка ниже."
-        val gptRequestDto = GptRequestDto(query = "$mainMessage[${feedback.subList(0, 300).joinToString("; ")}]")
+        val prepareFeedBacks = if (feedback.size > 300) { feedback.subList(0, 300) } else { feedback }
+        val gptRequestDto = GptRequestDto(query = "$mainMessage[${prepareFeedBacks.joinToString("; ")}]")
         val gptAnswer = gptClient.getResponseFromGpt(gptRequestDto)
         return gptAnswer.messages?.find { it.type == "answer" }?.content ?: ""
     }
