@@ -1,6 +1,5 @@
 package com.postnov.feedbacks.client
 
-import com.postnov.feedbacks.dto.FeedbackDto
 import com.postnov.feedbacks.dto.ProductDto
 import com.postnov.feedbacks.service.client.WbClient
 import io.ktor.client.HttpClient
@@ -30,11 +29,11 @@ class WbClientImpl(
             }
     }
 
-    override fun getFeedbackByCardId(id: Int, version: Int): FeedbackDto =
+    override fun getFeedbackByCardId(id: Int, version: Int): ByteArray =
         runBlocking {
             return@runBlocking try {
-                val response: HttpResponse = httpClient.get("https://feedbacks$version.wb.ru/feedbacks/v1/$id")
-                response.receive<FeedbackDto>()
+                val response: HttpResponse = httpClient.get("https://feedbacks2.wb.ru/feedbacks/v1/$id")
+                response.receive<ByteArray>()
             } catch (ex: Exception) {
                 log.error("Unable to get result by CardId: $id.", ex)
                 throw RuntimeException("Unable to get result by CardId: $id.")

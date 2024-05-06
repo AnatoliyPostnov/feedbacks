@@ -6,6 +6,7 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.logging.*
+import io.ktor.http.HttpHeaders.ContentEncoding
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
