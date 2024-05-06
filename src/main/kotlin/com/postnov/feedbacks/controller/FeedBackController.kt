@@ -25,7 +25,7 @@ class FeedBackController(
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/parse")
-    fun getFeedbacksByProductId(@RequestParam id: String): ResponseEntity<List<String>> {
-        return ResponseEntity(feedBackService.getFeedbacksByProductId(id), HttpStatus.OK)
+    fun getFeedbacksByProductId(@RequestParam id: String): ResponseEntity<String> {
+        return ResponseEntity(feedBackService.getGptAnswer(id), HttpStatus.OK)
     }
 }

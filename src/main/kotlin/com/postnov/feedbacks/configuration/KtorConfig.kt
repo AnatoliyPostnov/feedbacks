@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class KtorConfig {
-    val timeoutMills: Long = 60000
+    val timeoutMills: Long = 180000
     @Bean
     fun ktorHttpClient(jacksonMapper: ObjectMapper): HttpClient = HttpClient(CIO) {
         install(JsonFeature) {

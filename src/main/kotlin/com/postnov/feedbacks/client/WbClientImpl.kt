@@ -32,7 +32,7 @@ class WbClientImpl(
     override fun getFeedbackByCardId(id: Int, version: Int): ByteArray =
         runBlocking {
             return@runBlocking try {
-                val response: HttpResponse = httpClient.get("https://feedbacks2.wb.ru/feedbacks/v1/$id")
+                val response: HttpResponse = httpClient.get("https://feedbacks$version.wb.ru/feedbacks/v1/$id")
                 response.receive<ByteArray>()
             } catch (ex: Exception) {
                 log.error("Unable to get result by CardId: $id.", ex)
