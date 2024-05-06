@@ -15,11 +15,6 @@ class FeedBackServiceImpl(
     private val objectMapper: ObjectMapper,
     @Qualifier("wbClientImpl") private val wbClient: WbClient
 ): FeedBackService {
-    override fun parseFeedBack(inputData: FeedbackDto): List<String> {
-        return inputData.feedbacks?.mapNotNull { it.text }
-            ?: throw RuntimeException("Parsing result can`t be null")
-    }
-
     override fun getFeedbacksByProductId(id: String): List<String> {
         val product = wbClient.getProductByProductId(id)
         val cardId = product.data?.products?.firstOrNull()?.root
@@ -31,9 +26,14 @@ class FeedBackServiceImpl(
                     gzipInputStream.transferTo(byteArrayOutputStream)
                     val content = byteArrayOutputStream.toByteArray()
                     val feedBacks = objectMapper.readValue(content, FeedbackDto::class.java)
-                    return feedBacks.feedbacks?.mapNotNull { it.text } ?: emptyList()
+                    return parseFeedBack(feedBacks)
                 }
             }
         }
+    }
+
+    private fun parseFeedBack(inputData: FeedbackDto): List<String> {
+        return inputData.feedbacks?.mapNotNull { it.text }
+            ?: throw RuntimeException("Parsing result can`t be null")
     }
 }

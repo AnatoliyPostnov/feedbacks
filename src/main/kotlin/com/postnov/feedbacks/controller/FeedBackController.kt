@@ -24,11 +24,6 @@ class FeedBackController(
 ) {
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
 
-    @PostMapping("/parse")
-    fun parseFeedBack(@RequestBody inputData: FeedbackDto): ResponseEntity<List<String>> {
-        return ResponseEntity(feedBackService.parseFeedBack(inputData), HttpStatus.OK)
-    }
-
     @GetMapping("/parse")
     fun getFeedbacksByProductId(@RequestParam id: String): ResponseEntity<List<String>> {
         return ResponseEntity(feedBackService.getFeedbacksByProductId(id), HttpStatus.OK)

@@ -2,11 +2,11 @@ package com.postnov.feedbacks.client
 
 import com.postnov.feedbacks.dto.ProductDto
 import com.postnov.feedbacks.service.client.WbClient
+import com.postnov.feedbacks.utils.tryReceive
 import io.ktor.client.HttpClient
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Component
 import org.slf4j.Logger
@@ -39,12 +39,4 @@ class WbClientImpl(
                 throw RuntimeException("Unable to get result by CardId: $id.")
             }
         }
-}
-
-suspend inline fun <reified T> HttpResponse.tryReceive(): T? {
-    return when (status) {
-        HttpStatusCode.NotFound -> null
-        HttpStatusCode.OK -> receive<T>()
-        else -> throw RuntimeException("Failed to make request ${request.url}: HTTP $status")
-    }
 }
