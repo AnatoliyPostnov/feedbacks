@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: feedbacks
+
+#  datasource:
+#    url: "jdbc:postgresql://localhost/workout_bot"
+#    username: workout_bot
+#    password: workout_bot
+
+#  flyway:
+#    enabled: true
+
+telegram:
+  name: WildberriesFeedbacksBot
+  token: 6763583729:AAHtW2WTReZmanAMcYAiDts9DxzkG3vyp50
+#  uri: https://158.160.17.180:8081/
+  uri: https://c6ab-5-19-3-135.ngrok-free.app
+
+server:
+  ssl:
+    enabled: false
+  port: 8080

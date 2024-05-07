@@ -29,6 +29,7 @@ dependencies {
 	implementation("io.ktor:ktor-client-cio:1.6.3")
 	implementation("io.ktor:ktor-client-jackson:1.6.3")
 	implementation("io.ktor:ktor-client-logging:1.6.3")
+	implementation("org.telegram:telegrambots-spring-boot-starter:6.5.0")
 }
 
 tasks.withType<KotlinCompile> {
