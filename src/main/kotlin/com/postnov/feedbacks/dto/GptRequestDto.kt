@@ -5,5 +5,7 @@ data class GptRequestDto(
     val botId: String? = "7351009187687661574",
     val user: String? = "7286588006302",
     val stream: Boolean? = false,
-    val query: String?
+    val query: String?,
+    val model: String? = "llama3",
+    val prompt: String?,
 )

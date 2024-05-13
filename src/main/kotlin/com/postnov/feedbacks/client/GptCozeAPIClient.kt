@@ -2,7 +2,6 @@ package com.postnov.feedbacks.client
 
 import com.postnov.feedbacks.dto.GptRequestDto
 import com.postnov.feedbacks.dto.GptResponseDto
-import com.postnov.feedbacks.dto.ProductDto
 import com.postnov.feedbacks.service.client.GptClient
 import com.postnov.feedbacks.utils.tryReceive
 import io.ktor.client.HttpClient
@@ -15,7 +14,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 @Component
-class GptClientImpl(
+class GptCozeAPIClient(
     private val httpClient: HttpClient
 ): GptClient {
     private val log: Logger = LoggerFactory.getLogger(this::class.java)

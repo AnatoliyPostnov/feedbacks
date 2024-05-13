@@ -1,33 +1,23 @@
 package com.postnov.feedbacks.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.postnov.feedbacks.controller.service.FeedBackService
 import com.postnov.feedbacks.dto.FeedbackDto
-import com.postnov.feedbacks.dto.GptRequestDto
 import com.postnov.feedbacks.service.client.GptClient
 import com.postnov.feedbacks.service.client.WbClient
+import com.postnov.feedbacks.service.itrf.FeedbackService
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.util.zip.GZIPInputStream
 import java.util.zip.ZipException
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
 @Service
 class FeedBackServiceImpl(
     private val objectMapper: ObjectMapper,
-    private val wbClient: WbClient,
-    private val gptClient: GptClient
-): FeedBackService {
-    override fun getGptAnswer(id: String): String {
-        val feedback = getFeedbacksByProductId(id)
-        val mainMessage = "Сделай краткую выжимку чаще всего встречающихся негативных отзывов из списка ниже."
-        val prepareFeedBacks = if (feedback.size > 300) { feedback.subList(0, 300) } else { feedback }
-        val gptRequestDto = GptRequestDto(query = "$mainMessage[${prepareFeedBacks.joinToString("; ")}]")
-        val gptAnswer = gptClient.getResponseFromGpt(gptRequestDto)
-        return gptAnswer.messages?.find { it.type == "answer" }?.content ?: ""
-    }
-
-    private fun getFeedbacksByProductId(id: String, version: Int = 2): List<String> {
+    private val wbClient: WbClient
+): FeedbackService {
+    override fun getFeedbacksByProductId(id: String, version: Int): List<String> {
         val product = wbClient.getProductByProductId(id)
         val cardId = product.data?.products?.firstOrNull()?.root
             ?: throw RuntimeException("cardId can`t be null")
