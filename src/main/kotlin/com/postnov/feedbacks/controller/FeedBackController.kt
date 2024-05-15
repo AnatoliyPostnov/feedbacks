@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/feedback")
+@RequestMapping("/feedbacks")
 @CrossOrigin
 class FeedBackController(
     @Qualifier("gptLlamaApiService") val gptAnswerService: GptAnswerService

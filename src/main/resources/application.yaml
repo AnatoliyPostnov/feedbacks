@@ -14,7 +14,7 @@ telegram:
   name: WildberriesFeedbacksBot
   token: 6763583729:AAHtW2WTReZmanAMcYAiDts9DxzkG3vyp50
 #  uri: https://158.160.17.180:8081/
-  uri: https://81.163.25.109:8081/feedbacks
+  uri: https://81.163.25.109:8081/
 
 server:
   ssl:
