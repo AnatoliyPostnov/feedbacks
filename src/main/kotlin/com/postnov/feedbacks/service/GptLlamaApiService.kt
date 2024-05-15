@@ -15,8 +15,17 @@ class GptLlamaApiService(
     override fun getGptAnswer(id: String, conversationId: String): String {
         val feedback = feedbackService.getFeedbacksByProductId(id)
         val mainMessage = "Представь краткую выжимку отрицательных отзывов из текста ниже на русском языке."
-        val prepareFeedBacks = if (feedback.size > 300) { feedback.subList(0, 300) } else { feedback }
-        val query = "$mainMessage[${prepareFeedBacks.joinToString("; ").subSequence(0, 4000)}]"
+        val prepareFeedBacks = if (feedback.size >= 300) {
+            feedback.subList(0, 300)
+        } else { feedback }
+        val allQuery = "$mainMessage[${prepareFeedBacks.joinToString("; ")}]"
+
+        val query = if (allQuery.length > 4000) {
+            allQuery.subSequence(0, 4000).toString()
+        } else {
+            allQuery
+        }
+
         val gptRequestDto = GptRequestDto(conversationId = conversationId, query = query, prompt = query)
         val gptAnswer = gptClient.getResponseFromGpt(gptRequestDto)
         return gptAnswer.response ?: ""
