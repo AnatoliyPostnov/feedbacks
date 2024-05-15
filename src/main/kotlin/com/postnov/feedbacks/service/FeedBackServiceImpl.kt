@@ -2,14 +2,12 @@ package com.postnov.feedbacks.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.postnov.feedbacks.dto.FeedbackDto
-import com.postnov.feedbacks.service.client.GptClient
 import com.postnov.feedbacks.service.client.WbClient
 import com.postnov.feedbacks.service.itrf.FeedbackService
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.util.zip.GZIPInputStream
 import java.util.zip.ZipException
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
 @Service
