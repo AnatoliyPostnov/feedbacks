@@ -2,7 +2,6 @@ FROM gradle:8.7-jdk17 AS TEMP_BUILD_IMAGE
 
 ENV APP_HOME=/app/feedbacks
 WORKDIR $APP_HOME
-
 COPY . .
 
 RUN gradle bootJar --refresh-dependencies
