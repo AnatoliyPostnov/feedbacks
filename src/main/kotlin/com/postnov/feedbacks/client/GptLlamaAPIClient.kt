@@ -21,7 +21,7 @@ class GptLlamaAPIClient(
     override fun getResponseFromGpt(gptRequestDto: GptRequestDto): GptResponseDto {
         return runBlocking {
             try {
-                val response: HttpResponse = httpClient.post("http://81.163.25.109:8081/api/generate") {
+                val response: HttpResponse = httpClient.post("http://localhost:11434/api/generate") {
                     method = HttpMethod.Post
                     contentType(ContentType.Application.Json)
                     body = gptRequestDto
