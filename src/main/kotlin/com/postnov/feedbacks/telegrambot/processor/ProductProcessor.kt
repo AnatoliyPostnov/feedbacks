@@ -31,13 +31,12 @@ class ProductProcessor(
 
     override fun process(update: Update) {
         val chatId = getChatId(update) ?: return
-        if (userStatus[chatId] != REGISTERED) { return }
         val productId = update.message.text?.toIntOrNull()
         val response = productId?.let {
             val chat = ChatDto(chatId, productId)
             if (atomicInteger.getAndAdd(1) < 5) {
                 blockingQueue.put(chat)
-                "Отзывы для $it обрабатываются. После окончания обработки результат будет выведен на экран.\nВведите номер артикула: "
+                "Отзывы для $it обрабатываются. После окончания обработки результат будет выведен на экран. Вы можете продолжить делать запросы не дожидаясь окончания процесса обработки предыдущего запроса.\nВведите номер артикула: "
             } else {
                 "Слишком много запросов в данный момент. Попробуйте чуть позже.\nВведите номер артикула: "
             }

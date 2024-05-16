@@ -15,7 +15,7 @@ class Constants {
         const val ERROR_PRODUCT_ID = "Неправильный артикул. Попробуйте ввести заново.\nВведите номер артикула: "
         const val MAX_NEGATIVE_VALUATION = 3
         const val MAX_FEEDBACK_LENGTH = 200
-        const val MAX_FEEDBACKS_FOR_STUDY = 40
+        const val MAX_FEEDBACKS_FOR_STUDY = 20
         const val WB_SECOND_VERSION = 2
         const val WB_FIRST_VERSION = 1
     }

@@ -16,6 +16,7 @@ class GptLlamaApiService(
 ): GptAnswerService {
     override fun getGptAnswer(id: String): String {
         val feedback = feedbackService.getNegativeFeedbacksByProductId(id)
+        if (feedback.isEmpty()) return "Отрицательных отзывов по этому товару с оценкой ниже 4 звезд не нашлось."
         val feedbackObjectNode = objectMapper.createObjectNode().arrayNode()
         feedback.forEach { feedbackObjectNode.add(it) }
         val mainMessage = "Представь краткую выжимку отрицательных отзывов из текста ниже на русском языке."
