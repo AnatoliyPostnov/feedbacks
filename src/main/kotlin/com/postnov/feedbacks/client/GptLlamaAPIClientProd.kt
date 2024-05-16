@@ -12,9 +12,11 @@ import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Component
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Profile
 
 @Component
-class GptLlamaAPIClient(
+@Profile("prod")
+class GptLlamaAPIClientProd(
     private val httpClient: HttpClient
 ): GptClient {
     private val log: Logger = LoggerFactory.getLogger(this::class.java)
@@ -34,3 +36,4 @@ class GptLlamaAPIClient(
         }
     }
 }
+//http://81.163.25.109:8082/api/generate

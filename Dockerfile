@@ -17,4 +17,4 @@ WORKDIR $APP_HOME
 COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME ./app.jar
 EXPOSE 8080
 
-CMD java $JAVA_OPTS $JPAGENT_PATH -jar app.jar
+CMD java $JAVA_OPTS $JPAGENT_PATH -Dspring.profiles.active=prod -jar app.jar

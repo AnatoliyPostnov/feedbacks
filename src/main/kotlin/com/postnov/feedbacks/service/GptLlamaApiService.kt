@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class GptLlamaApiService(
-    @Qualifier("gptLlamaAPIClient") private val gptClient: GptClient,
+    private val gptClient: GptClient,
     private val feedbackService: FeedbackService,
     private val objectMapper: ObjectMapper
 ): GptAnswerService {
