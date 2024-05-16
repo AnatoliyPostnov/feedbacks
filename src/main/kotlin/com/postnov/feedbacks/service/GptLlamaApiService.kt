@@ -1,5 +1,6 @@
 package com.postnov.feedbacks.service
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.postnov.feedbacks.controller.service.GptAnswerService
 import com.postnov.feedbacks.dto.GptRequestDto
 import com.postnov.feedbacks.service.client.GptClient
@@ -10,23 +11,16 @@ import org.springframework.stereotype.Service
 @Service
 class GptLlamaApiService(
     @Qualifier("gptLlamaAPIClient") private val gptClient: GptClient,
-    private val feedbackService: FeedbackService
+    private val feedbackService: FeedbackService,
+    private val objectMapper: ObjectMapper
 ): GptAnswerService {
-    override fun getGptAnswer(id: String, conversationId: String): String {
-        val feedback = feedbackService.getFeedbacksByProductId(id)
+    override fun getGptAnswer(id: String): String {
+        val feedback = feedbackService.getNegativeFeedbacksByProductId(id)
+        val feedbackObjectNode = objectMapper.createObjectNode().arrayNode()
+        feedback.forEach { feedbackObjectNode.add(it) }
         val mainMessage = "Представь краткую выжимку отрицательных отзывов из текста ниже на русском языке."
-        val prepareFeedBacks = if (feedback.size >= 300) {
-            feedback.subList(0, 300)
-        } else { feedback }
-        val allQuery = "$mainMessage[${prepareFeedBacks.joinToString("; ")}]"
-
-        val query = if (allQuery.length > 4000) {
-            allQuery.subSequence(0, 4000).toString()
-        } else {
-            allQuery
-        }
-
-        val gptRequestDto = GptRequestDto(conversationId = conversationId, query = query, prompt = query)
+        val query = "$mainMessage: $feedbackObjectNode"
+        val gptRequestDto = GptRequestDto(prompt = query)
         val gptAnswer = gptClient.getResponseFromGpt(gptRequestDto)
         return gptAnswer.response ?: ""
     }

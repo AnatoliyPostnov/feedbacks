@@ -59,7 +59,7 @@ class ProductProcessor(
     }
 
     private final fun handleProductId(chat: ChatDto) {
-        val result = gptAnswerService.getGptAnswer(chat.productId.toString(), Integer(atomicInteger.get()).toString())
+        val result = gptAnswerService.getGptAnswer(chat.productId.toString())
         val message = SendMessage(
             chat.chatId.toString(),
             """
